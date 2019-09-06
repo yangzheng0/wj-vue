@@ -14,7 +14,7 @@
         <el-button type="primary" @click.native.prevent="login" style="width: 100%">登录</el-button>
       </el-form-item>
     </el-form>
-    <div id="el-login-footer">
+    <div class="el-login-footer">
       <span>版权所有 @ 卓牛科技有限公司</span>
     </div>
   </body>
@@ -95,5 +95,8 @@ export default{
   .login_remember{
     margin: 0px 0px 35px 0px;
     text-align: left;
+  }
+  .el-login-footer{
+    text-align: center;
   }
 </style>

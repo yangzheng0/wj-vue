@@ -73,3 +73,8 @@ BusFactory.$emit = (...params) => Bus.$emit(...params)
 BusFactory.$once = (...params) => Bus.$once(...params)
 
 export default BusFactory
+export function findIndex (arr, k, v) {
+  return arr.findIndex((item) => {
+    return item[k] === v
+  })
+}

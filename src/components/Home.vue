@@ -1,64 +1,42 @@
 <template>
-  <el-container class="home_container">
-    <el-header>
-      <div class="home_title">Himobi运营平台</div>
-      <div class="home_userinfoContainer">
-        <el-dropdown @command="handleCommand">
-          <span class="el-dropdown-link home_userinfo">
-            你好! {{$store.getters.userName}}<i class="el-icon-arrow-down el-icon--right home_userinfo"></i>
-          </span>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="logout" divided>退出登录</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      </div>
-    </el-header>
-    <div class="tree">
-      <el-tree :data="data" :props="defaultProps" :expand-on-click-node="false" default-expand-all @node-click="select"/>
+  <div>
+    <NavMenu />
+    <div class="v3-main" :style="{'margin-left': isNavMenuOpen ? '200px': '64px'}">
+      <div class="v3-header"> <Header /> </div>
+      <div class="v3-tabs"> <TopNav /> </div>
+      <el-main class="v3-content-main">
+        <keep-alive :include="navTagIndexs">
+          <router-view></router-view>
+        </keep-alive>
+      </el-main>
     </div>
-    <div id="el-login-footer">
-      <span>版权所有 @ 卓牛科技有限公司</span>
-    </div>
-  </el-container>
+  </div>
 </template>
 
 <script>
 import {getRequest} from '../utils/api'
-import Treeselect from '@riophae/vue-treeselect'
-// import the styles
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import NavMenu from '@/components/NavMenu'
+import { mapGetters, mapState } from 'vuex'
+import Header from '@/components/Header'
+import TopNav from '@/components/TopNav'
 export default {
   mounted: function () {
     this.getData()
   },
   components: {
-    Treeselect: Treeselect
+    NavMenu, Header, TopNav
   },
   data () {
     return {
       selection: null,
       data: [],
-      currentUserName: '',
-      value: null,
-      options: [ {
-        id: 'a',
-        label: 'a',
-        children: [ {
-          id: 'aa',
-          label: 'aa'
-        }, {
-          id: 'ab',
-          label: 'ab'
-        } ]
-      }, {
-        id: 'b',
-        label: 'b'
-      }, {
-        id: 'c',
-        label: 'c'
-      } ]
-
+      currentUserName: ''
     }
+  },
+  computed: {
+    ...mapGetters(['navTagIndexs']),
+    ...mapState(['isNavMenuOpen'])
   },
   methods: {
     handleCommand (command) {
@@ -82,8 +60,8 @@ export default {
         this.data = resp.data
       })
     },
-    select () {
-
+    select (data) {
+      console.log(data)
     }
   }
 }
@@ -91,34 +69,21 @@ export default {
 <style>
   body{
     margin: 0px;
+    padding: 0px;
   }
-  .home_container{
-    height: 100%;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
+  .v3-header {
+    height: 40px;
+    border-bottom: 1px solid #eee;
+    background: #fff
   }
-  .el-header{
-    background-color: #5c60ff;
-    color: #333;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  .v3-main {
+    margin-left: 200px;
   }
-  .home_title{
-    color: #fff;
-    font-size: 22px;
-    display: inline;
+  .v3-content-main {
+    background: #fff;
+    margin: 10px;
   }
-  .home_userinfo{
-    color: #fff;
-    cursor: pointer;
-  }
-  .tree{
-    width: 200px;
-    height: 100%;
-    border:1px solid #000
+  .v3-tabs {
+    background: #fff
   }
 </style>
