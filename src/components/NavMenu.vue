@@ -46,12 +46,16 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import menu from '../../config/menu-config'
-
+import {getRequest} from '../utils/api'
 export default {
+  mounted: function () {
+    getRequest('/sys/menu/getUserMenu').then(resp => {
+      this.menu = resp.data.data
+    })
+  },
   data () {
     return {
-      menu: menu
+      menu: []
     }
   },
   computed: {

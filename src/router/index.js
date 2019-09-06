@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import menus from '../../config/menu-config'
 import Home from '@/components/Home'
 import '../../static/font-awesome-4.7.0/css/font-awesome.min.css'
 
@@ -14,23 +13,45 @@ routes.push(
     component: () => import('@/components/Login')
   }
 )
-// 侧边栏二级菜单路由
-let LayoutChildren = []
-menus.forEach((item) => {
-  item.sub.forEach((cell) => {
-    LayoutChildren.push({
-      path: cell.name,
-      name: cell.name,
-      meta: cell.meta,
-      component: () => import(`@/components/${cell.name}`)
-    })
-  })
-})
 // 侧边栏菜单路由
 routes.push({
   path: '/home',
   name: 'Home',
   component: Home,
-  children: LayoutChildren
+  children: [
+    {
+      path: 'BasicLayout',
+      name: 'BasicLayout',
+      meta: {
+        'index': '/home/BasicLayout',
+        'title': '基本布局',
+        'type': 'menu',
+        'active': false
+      },
+      component: () => import(`@/components/BasicLayout`)
+    },
+    {
+      path: 'BasicContainer',
+      name: 'BasicContainer',
+      meta: {
+        'index': '/home/BasicContainer',
+        'title': '基本容器',
+        'type': 'menu',
+        'active': false
+      },
+      component: () => import(`@/components/BasicContainer`)
+    },
+    {
+      path: 'FormRadio',
+      name: 'FormRadio',
+      meta: {
+        'index': '/home/FormRadio',
+        'title': '单选按钮',
+        'type': 'menu',
+        'active': false
+      },
+      component: () => import(`@/components/FormRadio`)
+    }
+  ]
 })
 export default new Router({routes})

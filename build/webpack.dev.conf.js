@@ -13,6 +13,16 @@ const portfinder = require('portfinder')
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
+// 本地JSON获取：
+// 1 - 首先
+const express = require('express')
+const app = express()
+var appData = require('../data.json')//加载本地数据文件
+// json数据名
+var tree = appData.tree
+var apiRoutes = express.Router();
+app.use('/api', apiRoutes)
+
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
@@ -42,8 +52,24 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
+    },
+    // 2 - 然后
+    before(app) {
+      app.get('/sys/menu/getUserMenu', (req, res) => {
+        res.json({
+          errno: 0,
+          data: tree
+        })
+      }),
+      app.post('/sys/user/admin/login', (req, res) => {
+        res.json({
+          errno: 0,
+          success: true
+        })
+      })
     }
   },
+
   plugins: [
     new webpack.DefinePlugin({
       'process.env': require('../config/dev.env')
