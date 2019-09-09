@@ -1,5 +1,5 @@
 <template>
-  <el-row>
+  <el-row class="header-row">
     <el-col :span="2" class="header-wrap">
       <el-button class="no-b" :icon="iconName" @click="toggleMenuOpen"></el-button>
     </el-col>
@@ -54,14 +54,19 @@ export default {
 
 <style scoped>
   .no-b{
-    border: none!important
+    border: none!important;
+    background-color: #fff;
   }
   .text-r {
-    text-align: right
+    text-align: right;
   }
 
   .header-wrap {
     height: 40px;
+    border-bottom: 1px solid #eee;
+  }
+  .header-row{
+    background-color: #fff;
     border-bottom: 1px solid #eee;
   }
 </style>

@@ -73,8 +73,7 @@ export default {
   }
   .v3-header {
     height: 40px;
-    border-bottom: 1px solid #eee;
-    background: #fff
+    /*border-bottom: 1px solid #eee;*/
   }
   .v3-main {
     margin-left: 200px;
@@ -84,6 +83,7 @@ export default {
     margin: 10px;
   }
   .v3-tabs {
-    background: #fff
+    background: #fff;
+    border-bottom: 1px solid #eee;
   }
 </style>
