@@ -20,6 +20,7 @@ const app = express()
 var appData = require('../data.json')//加载本地数据文件
 // json数据名
 var tree = appData.tree
+var articles = appData.articles
 var apiRoutes = express.Router();
 app.use('/api', apiRoutes)
 
@@ -65,6 +66,13 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         res.json({
           errno: 0,
           success: true
+        })
+      }),
+      app.get('/ad/report', (req, res) => {
+        res.json({
+          errno: 0,
+          success: true,
+          articles: articles
         })
       })
     }

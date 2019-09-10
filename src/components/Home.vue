@@ -80,7 +80,7 @@ export default {
   }
   .v3-content-main {
     background: #fff;
-    margin: 10px;
+    /*margin: 10px;*/
   }
   .v3-tabs {
     background: #fff;
